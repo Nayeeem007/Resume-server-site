@@ -28,7 +28,7 @@ async function run() {
         app.get('/', (req, res) => {
             res.send("TOY Request Called")
         })
-k
+
         const toyCollection = client.db('toyManager').collection('toys')
         const bookingCollection = client.db('toyBooking').collection('bookings')
 
