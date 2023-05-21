@@ -16,6 +16,26 @@ app.get('/',(req,res)=>{
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = `mongodb+srv:// ${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.mcizzyu.mongodb.net/?retryWrites=true&w=majority`;
 
+async function run() {
+    try {
+        // Connect the client to the server	(optional starting in v4.7)
+
+        app.get('/', (req, res) => {
+            res.send("TOY Request Called")
+        })
+
+        const toyCollection = client.db('toyManager').collection('toys')
+        const bookingCollection = client.db('toyBooking').collection('bookings')
+
+        app.post('/toys', async (req, res) => {
+            const data = req.body;
+
+            const result = await toyCollection.insertOne(data)
+            res.send(result)
+        })
+    }
+
+
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -43,7 +63,7 @@ run().catch(console.dir);
 app.listen(port,()=>{
     console.log(`The toy server is running on port :${port}`);
     })
-
+    }
 
 
     
